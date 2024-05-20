@@ -1,3 +1,6 @@
+// g++ -o main src/*.cpp -Iinclude/ -g -Werror -Wall -O3
+// ./main 
+
 #include "../include/Ordenador.h"
 #include <iostream>
 #include <chrono>
@@ -28,8 +31,8 @@ int main()
 
     // Creacion del arreglo
     // 50 000 - 100 000 - 150 000 - 200 000
-    const int tamano = 200000;
-    int vector[tamano];
+    const int tamano = 10000000;
+    int* vector = new int[tamano](); //pasar al heap
     llenarArreglo(vector, tamano);
 
     // Medir el tiempo del ordenamiento
@@ -49,5 +52,7 @@ int main()
 
     cout << "Correcto." << endl;
     cout << "Tiempo " << duracion.count() << " milisegundos." << endl;
+
+    delete vector;
 } // Fin main
 
