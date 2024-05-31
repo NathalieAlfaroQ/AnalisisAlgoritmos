@@ -7,7 +7,7 @@ Los métodos a implementar son los siguientes: construcción [1 pto.], destrucci
 2. Inserte en una lista vacía n = 1 000 000 de nodos cuyas llaves sean enteros seleccio-
 nados aleatoriamente en el rango [0, 2n). Seleccione elementos al azar en el mismo
 rango [0, 2n) y búsquelos en la lista (estén o no en ella) registrando el número de
-búsquedas realizadas en un lapso de un segundo. [1 pto.]
+búsquedas realizadas en un lapso de un segundo.
 
 3. Inserte en una lista vacía las llaves 0, 1, ..., n−1, en ese orden. Seleccione elementos
 al azar en el rango [0, 2n), y registre el número de búsquedas que se logró hacer en
@@ -47,3 +47,4 @@ del doble de búsquedas). [1 pto.]
 riores, e indique si alguna de las estructuras de datos (lista enlazada o árbol de
 búsqueda binario) fue sustancialmente mejor que la otra (es decir, si permitió rea-
 lizar más del doble de búsquedas) y si esto corresponde a lo esperado. Explique.
+

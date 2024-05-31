@@ -1,6 +1,13 @@
 // llist.h
-//  Lista enlazada con nodo centinela
-//
+//  Lista doblemente enlazada con nodo centinela
+
+/*
+ * Permite insertar nodos al final de la lista, buscar nodos por su clave,
+ * y eliminar nodos específicos. Los nodos se manejan mediante la clase llnode,
+ * mientras que las operaciones sobre la lista se definen en la clase llist.
+ * El nodo centinela (nil) actúa como la cabeza de la lista, facilitando la
+ * gestión de la lista, especialmente cuando está vacía.
+ */
 
 #ifndef llist_h
 #define llist_h
@@ -63,6 +70,7 @@ public:
         else
         {
             // Sino esta vacia, va hasta el final de la lista y pone al nodo
+            // cambiar por insertar al inicio de la lista///////////////////////////////////////////////////
             llnode<T> *nodo = nil;
             while (nodo->next != NULL)
             {
