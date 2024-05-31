@@ -1,4 +1,4 @@
-// g++ -o main src/*.cpp -Iinclude/ -g -Werror -Wall -O3
+// g++ -o main.cpp
 // ./main 
 
 #include "../include/Ordenador.h"
