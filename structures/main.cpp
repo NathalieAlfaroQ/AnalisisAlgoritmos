@@ -6,12 +6,15 @@
 #include <random>
 #include <fstream>
 
+using namespace std;
+
 // Encabezados
 #include "llist.h"
 
 // Declaracion de variablees
 llist<int> *listaAleatoria(int n);
 void busquedaLista(llist<int> *lista, int n);
+llist<int> *listaSecuencial(int n);
 
 int main()
 {
@@ -19,9 +22,17 @@ int main()
     // 1 000 000
     const int n = 100000;
     // Inicializa una lista enlazada de tipo int con el resultado de la funcion
-    llist<int> *lista = listaAleatoria(n);
-    // Resultado de cantidad de busquedas para encontrar a X en la lista
-    busquedaLista(lista, n);
+    // Contiene numeros al azar
+    llist<int> *lista1 = listaAleatoria(n);
+    // Resultado de la cantidad de busquedas para encontrar a un X aleatorio en la lista
+    cout << "Lista 1 de valores aleatorios:" << endl;
+    busquedaLista(lista1, n);
+    // Inicializa una lista enlazada de tipo int con el resultado de la funcion
+    // Contiene numeros ordenados
+    llist<int> *lista2 = listaSecuencial(n);
+    // Resultado de la cantidad de busquedas para encontrar a un X aleatorio en la lista
+    cout << "Lista 2 de valores secuenciales:" << endl;
+    busquedaLista(lista2, n);
     // Fin del programa
     return 0;
 } // End main
@@ -49,6 +60,27 @@ llist<int> *listaAleatoria(int n)
     } // End for
     return lista;
 } // End listaAleatoria
+
+/*
+* Esta funcion crea una lista doblemente enlazada de tipo int
+* con n nodos, los nodos son de tipo int y poseen valores
+* secuenciales que empiezan desde 0 hasta n en orden y se
+* retorna la lista.
+*/
+llist<int> *listaSecuencial(int n)
+{
+    // Lista doble enlazada de tipo int
+    auto lista = new llist<int>();
+
+    // Insertar n nodos de tipo int de valores secuenciales
+    // a una lista doblemente enlazada de tipo int
+    for (int i = 0; i < n; i++)
+    {
+        auto nuevoNodo = new llnode<int>(i);
+        lista->Insert(nuevoNodo);
+    } // End for
+    return lista;
+} // End listaSecuencial
 
 /*
 * Esta funcion vacia cuenta cuantas busquedas se hicieron en maximo 1 segundo
