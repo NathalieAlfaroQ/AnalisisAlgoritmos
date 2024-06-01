@@ -36,16 +36,21 @@ public:
     bstnode<T> *root;
 
     // Constructor (crea un arbol vacio)
-    bstree(){}; // End bstree
+    bstree()
+    {
+        root = nullptr;
+    }; // End bstree
 
     // Destructor (borra el arbol)
-    ~bstree(){}; // End ~bstree
+    ~bstree(){
+        deleteSubTree(this->root);
+    }; // End ~bstree
 
     // Inserta el nodo z en la posicion que le corresponde en el arbol
     void Insert(bstnode<T> *z)
     {
-        x = T.root;
-        y = nullptr;
+        bstnode<T> *x = this->root;
+        bstnode<T> *y = nullptr;
 
         while (x != nullptr)
         {
@@ -64,7 +69,7 @@ public:
 
         if (y == nullptr)
         {
-            T.root = z;
+            this->root = z;
         }
         else if (z->key < y->key)
         {
@@ -178,11 +183,40 @@ public:
         } // End if
     }; // End Successor
 
-    void transplant(T, bstnode<T> *u, bstnode<T> *v)
+    // Saca del arbol la llave contenida en el nodo apuntado por z.
+    void Delete(bstnode<T> *z)
+    {
+        if (z->left == nullptr)
+        {
+            transplant(z, z->right);
+        }
+        else if (z->right == nullptr)
+        {
+            transplant(z, z->left);
+        }
+        else
+        {
+            bstnode<T> *y = Minimum(z->right);
+            if (y != z->right)
+            {
+                transplant(y, y->right);
+                y->right = z->right;
+                y->right->p = y;
+            } // End if
+            transplant(z, y);
+            y->left = z->left;
+            y->left->p = y;
+        } // End if
+        delete z;
+    }; // End Delete
+
+private:
+
+    void transplant(bstnode<T> *u, bstnode<T> *v)
     {
         if (u->p == nullptr)
         {
-            T.root = v;
+            this->root = v;
         }
         else if (u == u->p->left)
         {
@@ -199,31 +233,13 @@ public:
         } // End if
     } // End transplant
 
-    // Saca del arbol la llave contenida en el nodo apuntado por z.
-    void Delete(bstnode<T> *z)
-    {
-        if (z->left == nullptr)
-        {
-            transplant(T, z, z->right);
-        }
-        else if (z->right == nullptr)
-        {
-            transplant(T, z, z->left);
-        }
-        else
-        {
-            y = Minimum(z->right);
-            if (y != z->right)
-            {
-                transplant(T, y, y->right);
-                y->right = z->right;
-                y->right->p = y;
-            } // End if
-            transplant(T, z, y);
-            y->left = z->left;
-            y->left->p = y;
+    void deleteSubTree(bstnode<T>* node) {
+        if (node != nullptr) {
+        deleteSubTree(node->left);
+        deleteSubTree(node->right);
+        delete node;
         } // End if
-    }; // End Delete
+    } // End deleteSubTree
 }; // End class bstree
 
 #endif /* bstree_h */
