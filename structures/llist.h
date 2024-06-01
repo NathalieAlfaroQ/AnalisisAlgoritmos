@@ -41,7 +41,7 @@ class llist
 {
 public:
     // Nodo centinela
-    llnode<T> *nil; 
+    llnode<T> *nil;
 
     llist()
     {
@@ -81,11 +81,11 @@ public:
     // Busca un nodo con la llave k en la lista
     llnode<T> *Search(const T &k)
     {
-        /* 
-        * Busca la llave iterativamente
-        * Si la encuentra, devuelve un apuntador al nodo que la contiene,
-        * sino devuelve el nodo nil
-        */
+        /*
+         * Busca la llave iterativamente
+         * Si la encuentra, devuelve un apuntador al nodo que la contiene,
+         * sino devuelve el nodo nil
+         */
         llnode<T> *node = nil;
 
         // Recorre la lista desde nil hasta encontrar un nodo con la clave k
