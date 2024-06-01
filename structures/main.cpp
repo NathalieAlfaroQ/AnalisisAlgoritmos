@@ -1,3 +1,6 @@
+// g++ -o main main.cpp
+// ./main
+
 // Bibliotecas
 #include <iostream>
 #include <cstdlib>
@@ -10,6 +13,7 @@ using namespace std;
 
 // Encabezados
 #include "llist.h"
+#include "bstree.h"
 
 // Declaracion de variablees
 llist<int> *listaAleatoria(int n);
