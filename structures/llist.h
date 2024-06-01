@@ -14,34 +14,34 @@
 
 #include <cstddef>
 
-// Nodos de la lista:
+// Nodos de la lista tipo T:
 template <typename T>
-// Clase nodo
 class llnode
 {
 public:
-    // Esta clase es para ser usada por otras clases. Por eficiencia los atributos se dejan públicos.
+    // Esta clase es para ser usada por otras clases
+    // Por eficiencia los atributos se dejan públicos
     // Valor
     T key;
     // Anterior y siguiente
     llnode<T> *prev, *next;
 
-    // Constructor por omisión.
+    // Constructor por omisión
     llnode(){};
 
-    // Inicialización de los datos miembro.
+    // Inicialización de los datos miembro
     llnode(const T &k, llnode<T> *w = nullptr, llnode<T> *y = nullptr) : key(k), prev(w), next(y){};
 
     ~llnode(){};
 }; // End class llnode
 
-// Lista enlazada con nodo centinela:
+// Lista enlazada doble con nodo centinela:
 template <typename T>
-
 class llist
 {
 public:
-    llnode<T> *nil; // nodo centinela
+    // Nodo centinela
+    llnode<T> *nil; 
 
     llist()
     {
@@ -58,7 +58,7 @@ public:
         } // End while
     }; // End ~llist
 
-    // Inserta el nodo x en la lista.
+    // Inserta el nodo x en la lista
     void Insert(llnode<T> *x)
     {
         // Si la lista está vacía
@@ -81,7 +81,11 @@ public:
     // Busca un nodo con la llave k en la lista
     llnode<T> *Search(const T &k)
     {
-        // Busca la llave iterativamente. Si la encuentra, devuelve un apuntador al nodo que la contiene; sino devuelve el nodo nil (el centinela).
+        /* 
+        * Busca la llave iterativamente
+        * Si la encuentra, devuelve un apuntador al nodo que la contiene,
+        * sino devuelve el nodo nil
+        */
         llnode<T> *node = nil;
 
         // Recorre la lista desde nil hasta encontrar un nodo con la clave k
@@ -102,26 +106,24 @@ public:
     // Elimina nodo de la lista
     void Delete(llnode<T> *x)
     {
-        // Saca de la lista la llave contenida en el nodo apuntado por x.
+        // Saca de la lista la llave contenida en el nodo apuntado por x
         // Si el anterior y el siguiente no son null
         if (x->prev != nullptr && x->next != nullptr)
         {
-            // establezco los valores a sus nodos adyacentes y así X desaparece
+            // Establezco los valores a sus nodos adyacentes y así X desaparece
             llnode<T> *a = x->prev;
             llnode<T> *b = x->next;
             a->next = b;
             b->prev = a;
             delete x;
         }
-        // Si X es el primer nodo
         else if (x->prev == NULL)
         {
-            // pase al siguiente nodo
             nil = x->next;
             if (nil != NULL)
             {
                 nil->prev = NULL;
-            }
+            } // End if
             delete x;
         }
         else
@@ -129,7 +131,7 @@ public:
             if (x->next != NULL)
             {
                 x->next->prev = x->prev;
-            }
+            } // End if
             x->prev->next = x->next;
             delete x;
         } // End if
