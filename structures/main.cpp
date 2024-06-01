@@ -29,7 +29,7 @@ int main()
 {
     // Cantidad de nodos a insertar en la lista
     // 1 000 000
-    const int n = 1000000;
+    const int n = 100000;
 
     // Listas doblemente enlazadas:
     // Inicializa una lista enlazada de tipo int con el resultado de la funcion
