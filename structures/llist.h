@@ -1,8 +1,8 @@
 // llist.h
-//  Lista doblemente enlazada con nodo centinela
+// Lista doblemente enlazada con nodo centinela
 
 /*
- * Permite insertar nodos al final de la lista, buscar nodos por su clave,
+ * Permite insertar nodos al inicio de la lista, buscar nodos por su clave,
  * y eliminar nodos específicos. Los nodos se manejan mediante la clase llnode,
  * mientras que las operaciones sobre la lista se definen en la clase llist.
  * El nodo centinela (nil) actúa como la cabeza de la lista, facilitando la
@@ -20,16 +20,16 @@ template <typename T>
 class llnode
 {
 public:
-    // Esta clase es para ser usada por otras clases. Por eficiencia los atributos se dejan publicos.
+    // Esta clase es para ser usada por otras clases. Por eficiencia los atributos se dejan públicos.
     // Valor
     T key;
     // Anterior y siguiente
     llnode<T> *prev, *next;
 
-    // Constructor por omision.
+    // Constructor por omisión.
     llnode(){};
 
-    // Inicializacion de los datos miembro.
+    // Inicialización de los datos miembro.
     llnode(const T &k, llnode<T> *w = nullptr, llnode<T> *y = nullptr) : key(k), prev(w), next(y){};
 
     ~llnode(){};
@@ -45,9 +45,9 @@ public:
 
     llist()
     {
-        // Constructor (crea una lista vacia)
+        // Constructor (crea una lista vacía)
         nil = NULL;
-    }; //  End llist
+    }; // End llist
 
     ~llist()
     {
@@ -61,24 +61,20 @@ public:
     // Inserta el nodo x en la lista.
     void Insert(llnode<T> *x)
     {
-        // Si la lista esta vacia
+        // Si la lista está vacía
         if (nil == NULL)
         {
             nil = x;
             nil->next = NULL;
+            nil->prev = NULL;
         }
         else
         {
-            // Sino esta vacia, va hasta el final de la lista y pone al nodo
-            // cambiar por insertar al inicio de la lista///////////////////////////////////////////////////
-            llnode<T> *nodo = nil;
-            while (nodo->next != NULL)
-            {
-                nodo = nodo->next;
-            } // End while
-            x->next = NULL;
-            x->prev = nodo;
-            nodo->next = x;
+            // Inserta al inicio de la lista
+            x->next = nil;
+            x->prev = NULL;
+            nil->prev = x;
+            nil = x;
         } // End if
     }; // End Insert
 
@@ -110,7 +106,7 @@ public:
         // Si el anterior y el siguiente no son null
         if (x->prev != nullptr && x->next != nullptr)
         {
-            // establezco los valores a sus nodos adyacentes y asi X desaparece
+            // establezco los valores a sus nodos adyacentes y así X desaparece
             llnode<T> *a = x->prev;
             llnode<T> *b = x->next;
             a->next = b;
@@ -122,10 +118,19 @@ public:
         {
             // pase al siguiente nodo
             nil = x->next;
+            if (nil != NULL)
+            {
+                nil->prev = NULL;
+            }
             delete x;
         }
         else
         {
+            if (x->next != NULL)
+            {
+                x->next->prev = x->prev;
+            }
+            x->prev->next = x->next;
             delete x;
         } // End if
     }; // End Delete
