@@ -42,7 +42,8 @@ public:
     }; // End bstree
 
     // Destructor (borra el arbol)
-    ~bstree(){
+    ~bstree()
+    {
         deleteSubTree(this->root);
     }; // End ~bstree
 
@@ -211,7 +212,6 @@ public:
     }; // End Delete
 
 private:
-
     void transplant(bstnode<T> *u, bstnode<T> *v)
     {
         if (u->p == nullptr)
@@ -233,11 +233,13 @@ private:
         } // End if
     } // End transplant
 
-    void deleteSubTree(bstnode<T>* node) {
-        if (node != nullptr) {
-        deleteSubTree(node->left);
-        deleteSubTree(node->right);
-        delete node;
+    void deleteSubTree(bstnode<T> *node)
+    {
+        if (node != nullptr)
+        {
+            deleteSubTree(node->left);
+            deleteSubTree(node->right);
+            delete node;
         } // End if
     } // End deleteSubTree
 }; // End class bstree

@@ -149,7 +149,10 @@ void busquedaLista(llist<int> *lista, int n)
 } // End busquedaLista
 
 /*
- *
+ * Esta funcion crea un arbol de busqueda binaria de tipo
+ * int con n nodos de tipo int, los nodos a insertar estan
+ * en un rango de 0 a 2*n ya que seran aleatorios, al final
+ * se retorna este arbol.
  */
 bstree<int> *arbolAleatorio(int n)
 {
@@ -170,7 +173,10 @@ bstree<int> *arbolAleatorio(int n)
 } // End arbolAleatorio
 
 /*
- *
+ * Esta funcio crea un arbol de busqueda binaria de tipo int
+ * con n nodos de tipo int, los nodos a insertar tienen
+ * valores secuenciales, es decir, que estan ordenados y
+ * al final se retorna dicho arbol.
  */
 bstree<int> *arbolSecuencial(int n)
 {
@@ -188,7 +194,12 @@ bstree<int> *arbolSecuencial(int n)
 } // Eznd arbolSecuencial
 
 /*
- *
+ * Esta funcion tiene un contador llamado busquedas que
+ * contara la cantidad de busquedas que se hicieron en el
+ * arbol para encontrar un valor especifico que se genero
+ * aleatoriamente, ademas, se cuenta el tiempo en segundos
+ * ya que no se puede tardar en buscar ese numero mas de 1
+ * segundo y luego se imprime el resultado.
  */
 void busquedaArbol(bstree<int> *arbol, int n)
 {
