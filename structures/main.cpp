@@ -15,16 +15,23 @@ using namespace std;
 #include "llist.h"
 #include "bstree.h"
 
-// Declaracion de variablees
+// Declaracion de metodos:
+// Para listas doblemente enlazadas
 llist<int> *listaAleatoria(int n);
-void busquedaLista(llist<int> *lista, int n);
 llist<int> *listaSecuencial(int n);
+void busquedaLista(llist<int> *lista, int n);
+// Para arboles de busqueda binaria
+bstree<int> *arbolAleatorio(int n);
+void busquedaArbol(bstree<int> *arbol, int n);
+bstree<int> *arbolSecuencial(int n);
 
 int main()
 {
     // Cantidad de nodos a insertar en la lista
     // 1 000 000
     const int n = 1000000;
+
+    // Listas doblemente enlazadas:
     // Inicializa una lista enlazada de tipo int con el resultado de la funcion
     // Contiene numeros al azar
     llist<int> *lista1 = listaAleatoria(n);
@@ -37,6 +44,21 @@ int main()
     // Resultado de la cantidad de busquedas para encontrar a un X aleatorio en la lista
     cout << "Lista 2 de valores secuenciales:" << endl;
     busquedaLista(lista2, n);
+
+    cout << endl;
+
+    // Arboles de busqueda binaria:
+    // Hacer un arbol de tipo int con numeros aleatorios de n nodos
+    bstree<int> *arbol1 = arbolAleatorio(n);
+    // Resultado de la cantidad de busquedas para encontrar a un X aleatorio en el arbol
+    cout << "Arbol 1 de valores aleatorios:" << endl;
+    busquedaArbol(arbol1, n);
+    // Hacer un arbol de tipo int con numeros en secuencia de n nodos
+    bstree<int> *arbol2 = arbolSecuencial(n);
+    // Resultado de la cantidad de busquedas para encontrar a un X aleatorio en el arbol
+    cout << "Arbol 2 de valores secuenciales:" << endl;
+    busquedaArbol(arbol2, n);
+
     // Fin del programa
     return 0;
 } // End main
@@ -125,3 +147,76 @@ void busquedaLista(llist<int> *lista, int n)
     } // End for
     std::cout << "Cantidad de busquedas: " << busquedas << std::endl;
 } // End busquedaLista
+
+/*
+ *
+ */
+bstree<int> *arbolAleatorio(int n)
+{
+    // Crea un arbol de tipo int
+    auto arbol = new bstree<int>();
+    // Generar numeros de tipo int al alzar entre 0 y 2*n
+    std::mt19937 rng(std::random_device{}());
+    std::uniform_int_distribution<int> dist(0, 2 * n);
+
+    // Insertar n nodos de tipo int de valores aleatorios
+    // a un arbol de busqueda binaria de tipo int
+    for (int i = 0; i < n; i++)
+    {
+        auto nuevoNodo = new bstnode<int>(dist(rng));
+        arbol->Insert(nuevoNodo);
+    } // End for
+    return arbol;
+} // End arbolAleatorio
+
+/*
+ *
+ */
+bstree<int> *arbolSecuencial(int n)
+{
+    // Crea un arbol de tipo int
+    auto arbol = new bstree<int>();
+
+    // Insertar n nodos de tipo int de valores secuenciales
+    // a un arbol de busqueda binaria de tipo int
+    for (int i = 0; i < n; i++)
+    {
+        auto nuevoNodo = new bstnode<int>(i);
+        arbol->Insert(nuevoNodo);
+    } // End for
+    return arbol;
+} // Eznd arbolSecuencial
+
+/*
+ *
+ */
+void busquedaArbol(bstree<int> *arbol, int n)
+{
+    // Para contar la cantidad de busquedas
+    int busquedas = 0;
+    // Inicia a tomar el tiempo
+    auto inicio = std::chrono::high_resolution_clock::now();
+    // Se genera un numero aleatorio tipo int entre el rango
+    // de 0 a 2*n, este es el numero a buscar en la lista
+    std::mt19937 rng(std::random_device{}());
+    std::uniform_int_distribution<int> dist(0, 2 * n);
+
+    while (true)
+    {
+        // Buscar en la lista el numero generado aleatoriamente
+        arbol->IterativeSearch(arbol->root, dist(rng));
+        // Contar esa busqueda como una unidad
+        ++busquedas;
+        // Se deja de contar el tiempo
+        auto fin = std::chrono::high_resolution_clock::now();
+        // Se calcula la duracion en segundos
+        auto duracion = std::chrono::duration_cast<std::chrono::seconds>(fin - inicio).count();
+
+        // Se verifica que no se exceda de 1 segundo
+        if (duracion >= 1)
+        {
+            break;
+        } // End if
+    } // End for
+    std::cout << "Cantidad de busquedas: " << busquedas << std::endl;
+} // End busquedaArbol
