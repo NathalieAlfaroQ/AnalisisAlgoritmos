@@ -121,6 +121,9 @@ void busquedaLista(llist<int> *lista, int n)
 {
     // Para contar la cantidad de busquedas
     int busquedas = 0;
+    int exitosas = 0;
+    int fallidas = 0;
+
     // Inicia a tomar el tiempo
     auto inicio = std::chrono::high_resolution_clock::now();
     // Se genera un numero aleatorio tipo int entre el rango
@@ -131,9 +134,16 @@ void busquedaLista(llist<int> *lista, int n)
     while (true)
     {
         // Buscar en la lista el numero generado aleatoriamente
-        lista->Search(dist(rng));
+        bool encontrado = lista->Search(dist(rng));
         // Contar esa busqueda como una unidad
         ++busquedas;
+
+         if (encontrado) {
+            ++exitosas;
+        } else {
+            ++fallidas;
+        } // End if
+
         // Se deja de contar el tiempo
         auto fin = std::chrono::high_resolution_clock::now();
         // Se calcula la duracion en segundos
@@ -146,6 +156,9 @@ void busquedaLista(llist<int> *lista, int n)
         } // End if
     } // End for
     std::cout << "Cantidad de busquedas: " << busquedas << std::endl;
+    std::cout << "Búsquedas exitosas: " << exitosas << std::endl;
+    std::cout << "Búsquedas fallidas: " << fallidas << std::endl;
+    cout << endl;
 } // End busquedaLista
 
 /*
@@ -205,6 +218,9 @@ void busquedaArbol(bstree<int> *arbol, int n)
 {
     // Para contar la cantidad de busquedas
     int busquedas = 0;
+    int exitosas = 0;
+    int fallidas = 0;
+
     // Inicia a tomar el tiempo
     auto inicio = std::chrono::high_resolution_clock::now();
     // Se genera un numero aleatorio tipo int entre el rango
@@ -215,9 +231,16 @@ void busquedaArbol(bstree<int> *arbol, int n)
     while (true)
     {
         // Buscar en la lista el numero generado aleatoriamente
-        arbol->IterativeSearch(arbol->root, dist(rng));
+         bool encontrado = arbol->IterativeSearch(arbol->root, dist(rng));
         // Contar esa busqueda como una unidad
         ++busquedas;
+
+        if (encontrado) {
+            ++exitosas;
+        } else {
+            ++fallidas;
+        } // End if
+
         // Se deja de contar el tiempo
         auto fin = std::chrono::high_resolution_clock::now();
         // Se calcula la duracion en segundos
@@ -230,4 +253,7 @@ void busquedaArbol(bstree<int> *arbol, int n)
         } // End if
     } // End for
     std::cout << "Cantidad de busquedas: " << busquedas << std::endl;
+    std::cout << "Búsquedas exitosas: " << exitosas << std::endl;
+    std::cout << "Búsquedas fallidas: " << fallidas << std::endl;
+    cout << endl;
 } // End busquedaArbol
