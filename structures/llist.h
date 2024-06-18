@@ -52,10 +52,14 @@ public:
     ~llist()
     {
         // Destructor (borra la lista)
-        while (nil)
+        llnode<T> *current = nil->next;
+        while (current != nil)
         {
-            Delete(nil);
+            llnode<T> *next = current->next;
+            delete current;
+            current = next;
         } // End while
+        delete nil;
     }; // End ~llist
 
     // Inserta el nodo x en la lista
