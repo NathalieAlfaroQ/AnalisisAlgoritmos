@@ -46,7 +46,71 @@ public:
     ~rbtree() {
         // Destructor (borra el arbol)
     };
+
+    leftRotate (T, x) {
+        y = x->right;
+        x->right = y->left;
+
+        if (y->left != T->nil) {
+            y->left->p = x;
+        } // End if
+
+        y->p = x->p;
+
+        if (x->p == T->nil) {
+            T->root = y;
+        } else if (x == x->p->left) {
+            x->p->left = y;
+        } else {
+            x->p->right = y;
+        } // End if
+
+        y->left = x;
+        x->p = y;
+    } // End leftRotate
     
+    insertFixUp(T, z) {
+        while (z->p->color == RED) {
+
+            if (z->p == z->p->p->left) {
+                y = z->p->p->right;
+
+                if (y->color == RED) {
+                    z->p->color = BLACK;
+                    y->color = BLACK;
+                    z->p->p->color = RED;
+                    z = z->p->p;
+                } else {
+                    if (z == z->p->right) {
+                        z = z->p;
+                        leftRotate(T, z);
+                    } // End if
+                    z->p->color = BLACK;
+                    z->p->p->color = RED;
+                    rightRotate(T, z->p->p);
+                } // End if
+            } else { 
+                y = z->p->p->left;
+
+                if (y->color == RED) {
+                    z->p->color = BLACK;
+                    y->color = BLACK;
+                    z->p->p->color = RED;
+                    z = z->p->p;
+                } else {
+                    if (z == z->p->left) {
+                        z = z->p;
+                        rightRotate(T, z);
+                    } // End if
+                    z->p->color = BLACK;
+                    z->p->p->color = RED;
+                    leftRotate(T, z->p->p);
+                } // End if
+            } // End if
+        } // End while
+        T->root->color = BLACK;
+    } // End insertFixUp
+
     void Insert(rbtnode<T>* z) {
         // Inserta el nodo z en la posicion que le corresponde en el arbol.
         x = T->root;
