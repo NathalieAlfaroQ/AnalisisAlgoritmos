@@ -138,9 +138,12 @@ void busquedaLista(llist<int> *lista, int n)
         // Contar esa busqueda como una unidad
         ++busquedas;
 
-         if (encontrado) {
+        if (encontrado)
+        {
             ++exitosas;
-        } else {
+        }
+        else
+        {
             ++fallidas;
         } // End if
 
@@ -231,13 +234,16 @@ void busquedaArbol(bstree<int> *arbol, int n)
     while (true)
     {
         // Buscar en la lista el numero generado aleatoriamente
-         bool encontrado = arbol->IterativeSearch(arbol->root, dist(rng));
+        bool encontrado = arbol->IterativeSearch(arbol->root, dist(rng));
         // Contar esa busqueda como una unidad
         ++busquedas;
 
-        if (encontrado) {
+        if (encontrado)
+        {
             ++exitosas;
-        } else {
+        }
+        else
+        {
             ++fallidas;
         } // End if
 
