@@ -28,10 +28,10 @@ public:
     rbtnode() : p(nullptr), left(nullptr), right(nullptr), color(RED) {}
 
     // Inicializacion de datos miembro.
-    rbtnode(const T &k, rbtnode<T> *w = nullptr, rbtnode<T> *y = nullptr, rbtnode<T> *z = nullptr, enum colors c = RED) : key(k), p(w), left(y), right(z), color(c){};
+    rbtnode(const T &k, rbtnode<T> *w = nullptr, rbtnode<T> *y = nullptr, rbtnode<T> *z = nullptr, enum colors c = RED) : key(k), p(w), left(y), right(z), color(c) {}
 
     // Destructor
-    ~rbtnode(){};
+    ~rbtnode() {}
 }; // End class rbtnode
 
 // Arbol rojinegro:
@@ -48,14 +48,14 @@ public:
         nil = new rbtnode<T>();
         nil->color = BLACK;
         root = nil;
-    };
+    }
 
     ~rbtree()
     {
         // Destructor (borra el arbol)
         destroy_tree(root);
         delete nil;
-    };
+    }
 
     void destroy_tree(rbtnode<T> *x)
     {
@@ -64,7 +64,7 @@ public:
             destroy_tree(x->left);
             destroy_tree(x->right);
             delete x;
-        } // End if
+        }
     } // End destroy_tree
 
     void rightRotate(rbtnode<T> *x)
@@ -75,7 +75,7 @@ public:
         if (y->right != nullptr)
         {
             y->right->p = x;
-        } // End if
+        }
 
         y->p = x->p;
 
@@ -85,12 +85,12 @@ public:
         }
         else if (x == x->p->right)
         {
-            x->p->left = y;
+            x->p->right = y;
         }
         else
         {
             x->p->left = y;
-        } // End if
+        }
 
         y->right = x;
         x->p = y;
@@ -104,7 +104,7 @@ public:
         if (y->left != this->nil)
         {
             y->left->p = x;
-        } // End if
+        }
 
         y->p = x->p;
 
@@ -119,7 +119,7 @@ public:
         else
         {
             x->p->right = y;
-        } // End if
+        }
 
         y->left = x;
         x->p = y;
@@ -129,11 +129,9 @@ public:
     {
         while (z->p->color == RED)
         {
-
             if (z->p == z->p->p->left)
             {
                 rbtnode<T> *y = z->p->p->right;
-
                 if (y->color == RED)
                 {
                     z->p->color = BLACK;
@@ -147,16 +145,15 @@ public:
                     {
                         z = z->p;
                         leftRotate(z);
-                    } // End if
+                    }
                     z->p->color = BLACK;
                     z->p->p->color = RED;
                     rightRotate(z->p->p);
-                } // End if
+                }
             }
             else
             {
                 rbtnode<T> *y = z->p->p->left;
-
                 if (y->color == RED)
                 {
                     z->p->color = BLACK;
@@ -170,57 +167,42 @@ public:
                     {
                         z = z->p;
                         rightRotate(z);
-                    } // End if
+                    }
                     z->p->color = BLACK;
                     z->p->p->color = RED;
                     leftRotate(z->p->p);
-                } // End if
-            } // End if
-        } // End while
+                }
+            }
+        }
         this->root->color = BLACK;
     } // End insertFixUp
 
-    void Insert(rbtnode<T> *z)
+    void Insert(const T &key)
     {
         // Inserta el nodo z en la posicion que le corresponde en el arbol.
-        rbtnode<T> *x = this->root;
-        rbtnode<T> *y = this->nil;
+        rbtnode<T> *z = new rbtnode<T>(key, nullptr, nil, nil, RED);
+        rbtnode<T> *y = nil;
+        rbtnode<T> *x = root;
 
-        while (x != this->nil)
+        while (x != nil)
         {
             y = x;
-
             if (z->key < x->key)
-            {
                 x = x->left;
-            }
             else
-            {
                 x = x->right;
-            } // End if
-        } // End while
+        }
 
         z->p = y;
-
-        if (y == this->nil)
-        {
-            this->root = z;
-        }
+        if (y == nil)
+            root = z;
         else if (z->key < y->key)
-        {
             y->left = z;
-        }
         else
-        {
             y->right = z;
-        } // End if
-
-        z->left = this->nil;
-        z->right = this->nil;
-        z->color = RED;
 
         insertFixUp(z);
-    }; // End Insert
+    } // End Insert
 
     void InorderWalk(rbtnode<T> *x)
     {
@@ -230,8 +212,8 @@ public:
             InorderWalk(x->left);
             std::cout << x->key << std::endl;
             InorderWalk(x->right);
-        } // End if
-    }; // End InorderWalk
+        }
+    } // End InorderWalk
 
     rbtnode<T> *Search(rbtnode<T> *x, const T &k)
     {
@@ -239,7 +221,7 @@ public:
         if (x == nil || k == x->key)
         {
             return x;
-        } // End if
+        }
 
         if (k < x->key)
         {
@@ -248,8 +230,8 @@ public:
         else
         {
             return Search(x->right, k);
-        } // End if
-    }; // End Search
+        }
+    } // End Search
 
     rbtnode<T> *IterativeSearch(rbtnode<T> *x, const T &k)
     {
@@ -263,10 +245,10 @@ public:
             else
             {
                 x = x->right;
-            } // End if
-        } // End while
+            }
+        }
         return x;
-    }; // End IterativeSearch
+    } // End IterativeSearch
 
     rbtnode<T> *Minimum(rbtnode<T> *x)
     {
@@ -274,9 +256,9 @@ public:
         while (x->left != nil)
         {
             x = x->left;
-        } // End while
+        }
         return x;
-    }; // End Minimum
+    } // End Minimum
 
     rbtnode<T> *Maximum(rbtnode<T> *x)
     {
@@ -284,9 +266,9 @@ public:
         while (x->right != nil)
         {
             x = x->right;
-        } // End while
+        }
         return x;
-    }; // End Maximum
+    } // End Maximum
 
     rbtnode<T> *Successor(rbtnode<T> *x)
     {
@@ -294,7 +276,7 @@ public:
         if (x->right != nil)
         {
             return Minimum(x->right);
-        } // End if
+        }
 
         rbtnode<T> *y = x->p;
 
@@ -302,9 +284,9 @@ public:
         {
             x = y;
             y = y->p;
-        } // End while
+        }
         return y;
-    }; // End Successor
+    } // End Successor
 }; // End class rbtree
 
 #endif /* rbtree_h */
